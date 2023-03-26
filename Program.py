@@ -14,8 +14,7 @@ def number_plate_detection(img):
         gray_img = cv2.cvtColor(plate, cv2.COLOR_BGR2GRAY)
     
         _, thresh = cv2.threshold(gray_img, 110, 255, cv2.THRESH_BINARY)
-        if cv2.waitKey(0) & 0xff == ord('q'):
-            pass
+
         num_contours,hierarchy = cv2.findContours(thresh.copy(),cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     
         if num_contours:
@@ -143,13 +142,10 @@ print("Welcome to the Number Plate Detection System.\n")
 
 array=[]
 
-dir = os.path.dirname(__file__)
+dir = os.path.dirname(os.path.abspath(__file__))
 
-for img in glob.glob(dir+"/Images/*.jpeg") :
+for img in glob.glob(dir+"/Dataset/*.jpeg") :
     img=cv2.imread(img)
-    
-    
-    
     
     number_plate=number_plate_detection(img)
     res2 = str("".join(re.split("[^a-zA-Z0-9]*", number_plate)))
@@ -173,7 +169,7 @@ for i in array:
 print ("\n\n")    
 
 
-for img in glob.glob(dir+"/search/*.jpeg") :
+for img in glob.glob(dir+"/Searchfile/*.jpeg") :
     img=cv2.imread(img)
     
     number_plate=number_plate_detection(img)
